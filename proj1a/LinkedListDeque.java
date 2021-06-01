@@ -1,56 +1,33 @@
-public class LinkedListDeque<YourType> {
+public class LinkedListDeque<T> {
     private int size; //The size of the double ended queue
     private GNode sentinel; // We will apply the circular sentinel technique
     /**Define the Generalized Node
      * Here, we want a double ended, which involves prev*/
-    public class GNode {
-        private YourType item;
+    private class GNode {
+        private T item;
         private GNode next;
         private GNode prev;
-        public GNode(YourType input, GNode n, GNode p) {
+        public GNode(T input, GNode n, GNode p) {
             item = input;
             next = n;
             prev = p;
         }
     }
-    /**The constructor when you enter x
-     * Change the sentinel node*/
-    //Hmm, should be some ways to improve.
-    public LinkedListDeque(YourType x) {
-        sentinel = new GNode((YourType) null, null, null);
-        sentinel.next = new GNode(x, sentinel, sentinel);
-        sentinel.prev = sentinel.next;
-        size = 1;
-    }
     /**The constructor that create an empty ListDeque */
     public LinkedListDeque() {
         size = 0;
-        sentinel = new GNode((YourType) null, null, null);
+        sentinel = new GNode((T) null, null, null);
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
     }
     //Add an element to the list in the front.
-    public void addFirst(YourType input) {
-        //When the list is null
-     /*   if(size==0){
-            sentinel.next=new GNode(input,sentinel,sentinel);
-            sentinel.prev=sentinel.next;
-            size+=1;
-            return;
-        }*/
+    public void addFirst(T input) {
         sentinel.next = new GNode(input, sentinel.next, sentinel);
         sentinel.next.next.prev = sentinel.next;
         size += 1;
     }
     /**Add an element to the end of the list*/
-    public void addLast(YourType input) {
-        //When the list is null
-     /*   if(sentinel.prev==null){
-            sentinel.next=new GNode(input,sentinel,sentinel);
-            sentinel.prev=sentinel.next;
-            size+=1;
-            return;
-        }*/
+    public void addLast(T input) {
         sentinel.prev = new GNode(input, sentinel, sentinel.prev);
         sentinel.prev.prev.next = sentinel.prev;
         size += 1;
@@ -79,13 +56,12 @@ public class LinkedListDeque<YourType> {
         }
         System.out.println("\n======Printing process End======");
     }
-    /**Could be cumbersome when using one sentinel (not circular)*/
     /**I think it would be better removing unnecessary references*/
-    public YourType removeFirst() {
+    public T removeFirst() {
         if (size == 0) { // empty
             return null;
         }
-        YourType rValue = sentinel.next.item;
+        T rValue = sentinel.next.item;
         sentinel.next = sentinel.next.next;
         sentinel.next.prev = sentinel;
         size -= 1;
@@ -93,18 +69,18 @@ public class LinkedListDeque<YourType> {
     }
     /**Not that concise, may be we can improve it after adding
      * next/previous  */
-    public YourType removeLast() {
+    public T removeLast() {
         if (size == 0) { //only one node
             return null;
         }
-        YourType rValue = sentinel.prev.item;
+        T rValue = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
         sentinel.prev.next = sentinel;
         size -= 1;
         return rValue;
     }
 
-    public YourType get(int index) {
+    public T get(int index) {
         if (index >= size) {
             return null;
         }
@@ -115,7 +91,7 @@ public class LinkedListDeque<YourType> {
         return cursor.item;
     }
     /**Helper method for the recursive method*/
-    public YourType recurHelper(GNode origin, int index) {
+    public T recurHelper(GNode origin, int index) {
         if (index == 0) {
             return origin.item;
         }
@@ -123,7 +99,7 @@ public class LinkedListDeque<YourType> {
         return recurHelper(origin.next, index);
     }
 
-    public YourType getRecursive(int index) {
+    public T getRecursive(int index) {
         if (index >= size || index < 0) {
             System.out.println("Error: Index out of bound!");
             return null;

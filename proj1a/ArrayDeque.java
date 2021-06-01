@@ -1,23 +1,23 @@
-public class ArrayDeque<YourType> {
+public class ArrayDeque<T> {
     private final int capacity = 8;
-    YourType[] items;
-    int size;
-    int first;
-    int last;
+    private T[] items;
+    private int size;
+    private int first;
+    private int last;
 
     /**Make it easier to find "before"*/
-    public int minusOne(int index) {
+    private int minusOne(int index) {
         if (index > 0) {
             return index - 1;
         }
         return items.length - 1;
     }
     /**Make it easier to move "pointer"*/
-    public int plusOne(int index) {
+    private int plusOne(int index) {
         return (index + 1) % items.length;
     }
     /**Resize function*/
-    public void resize() {
+    private void resize() {
         if (size == items.length) {
             expand();
         }
@@ -27,9 +27,9 @@ public class ArrayDeque<YourType> {
         }
     }
     /**shrink current storage array*/
-    public void shrink() { //shrink by half
+    private void shrink() { //shrink by half
         int nextCapacity = items.length / 2;
-        YourType[] tmp = (YourType[]) new Object[nextCapacity];
+        T[] tmp = (T[]) new Object[nextCapacity];
         int start = (nextCapacity - size) / 2;
         for (int i = start; i < (start + size); i++) {
             tmp[i] = this.get(i % start);
@@ -39,9 +39,9 @@ public class ArrayDeque<YourType> {
         first = minusOne(start);
     }
     /**Expand current storage array*/
-    public void expand() {
+    private void expand() {
         int nextCapacity = items.length * 2;
-        YourType[] tmp = (YourType[]) new Object[nextCapacity];
+        T[] tmp = (T[]) new Object[nextCapacity];
         int start = (nextCapacity - size) / 2;
         for (int i = start; i < (start + size); i++) {
             tmp[i] = this.get(i % start);
@@ -54,19 +54,19 @@ public class ArrayDeque<YourType> {
     /**Add a sentinel node*/
     public ArrayDeque() {
         size = 0;
-        items = (YourType[]) new Object[capacity];
+        items = (T[]) new Object[capacity];
         first = 2;
         last = 3;
     }
     /**Add an element to the front.*/
-    public void addFirst(YourType input) {
+    public void addFirst(T input) {
         resize();
         items[first] = input;
         first = minusOne(first);
         size++;
     }
     /**Add an element to the end*/
-    public void addLast(YourType input) {
+    public void addLast(T input) {
         resize();
         items[last] = input;
         last = plusOne(last);
@@ -95,20 +95,20 @@ public class ArrayDeque<YourType> {
         System.out.println("\n======Printing process End======");
     }
     /**Get the index-th element*/
-    public YourType get(int index) {
+    public T get(int index) {
         if (index >= size || index < 0) {
             System.out.println("Error: The given index is out of bound");
-            return (YourType) null;
+            return (T) null;
         }
         int outIndex = (index + plusOne(first)) % items.length;
         return items[outIndex];
     }
     /**Remove the first element*/
-    public YourType removeFirst() {
+    public T removeFirst() {
         if (size == 0) {
-            return (YourType) null;
+            return (T) null;
         }
-        YourType outPut;
+        T outPut;
         first = plusOne(first);
         outPut = items[first];
         size--;
@@ -116,11 +116,11 @@ public class ArrayDeque<YourType> {
         return outPut;
     }
     /**Remove the last element*/
-    public YourType removeLast() {
+    public T removeLast() {
         if (size == 0) {
-            return (YourType) null;
+            return (T) null;
         }
-        YourType outPut;
+        T outPut;
         last = minusOne(last);
         outPut = items[last];
         size--;
