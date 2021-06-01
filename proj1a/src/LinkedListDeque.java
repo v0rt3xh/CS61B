@@ -72,7 +72,7 @@ public class LinkedListDeque<YourType> {
     public void printDeque() {
         GNode cursor = sentinel;
         System.out.println("======Printing process Start======");
-        while(cursor.next != sentinel) {
+        while (cursor.next != sentinel) {
             cursor = cursor.next;
             System.out.print(cursor.item);
             System.out.print(" ");
@@ -82,7 +82,7 @@ public class LinkedListDeque<YourType> {
     /**Could be cumbersome when using one sentinel (not circular)*/
     /**I think it would be better removing unnecessary references*/
     public YourType removeFirst() {
-        if (size == 0) {// empty
+        if (size == 0) {
             return null;
         }
         YourType rValue = sentinel.next.item;
@@ -95,7 +95,7 @@ public class LinkedListDeque<YourType> {
      * next/previous  */
     public YourType removeLast() {
         //only one node
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         YourType rValue = sentinel.prev.item;
