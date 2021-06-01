@@ -32,7 +32,7 @@ public class ArrayDeque<T> {
         T[] tmp = (T[]) new Object[newCapacity];
         int start = (newCapacity - size) / 2;
         for (int i = start; i < (start + size); i++) {
-            tmp[i] = this.get(i % start);
+            tmp[i] = this.get(i - start);
         }
         items = tmp;
         last = plusOne(start + size - 1);
@@ -44,7 +44,7 @@ public class ArrayDeque<T> {
         T[] tmp = (T[]) new Object[newCapacity];
         int start = (newCapacity - size) / 2;
         for (int i = start; i < (start + size); i++) {
-            tmp[i] = this.get(i % start);
+            tmp[i] = this.get(i - start);
         }
         items = tmp;
         last = plusOne(start + size - 1);
@@ -103,7 +103,7 @@ public class ArrayDeque<T> {
             System.out.println("Error: The given index is out of bound");
             return (T) null;
         }
-        int outIndex = (index + plusOne(first)) % items.length;
+        int outIndex = (index + first+1) % items.length;
         return items[outIndex];
     }
     /**Remove the first element*/
