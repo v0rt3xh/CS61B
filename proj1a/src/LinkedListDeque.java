@@ -7,7 +7,7 @@ public class LinkedListDeque<YourType> {
         private YourType item;
         private GNode next;
         private GNode prev;
-        private GNode(YourType input,GNode n,GNode p) {
+        private GNode(YourType input, GNode n, GNode p) {
             item = input;
             next = n;
             prev = p;
@@ -17,15 +17,15 @@ public class LinkedListDeque<YourType> {
      * Change the sentinel node*/
     //Hmm, should be some ways to improve.
     public LinkedListDeque(YourType x) {
-        sentinel = new GNode((YourType) null,null,null);
-        sentinel.next = new GNode(x,sentinel,sentinel);
+        sentinel = new GNode((YourType) null, null, null);
+        sentinel.next = new GNode(x, sentinel, sentinel);
         sentinel.prev = sentinel.next;
         size = 1;
     }
     /**The constructor that create an empty ListDeque */
     public LinkedListDeque() {
         size = 0;
-        sentinel = new GNode((YourType) null,null,null);
+        sentinel = new GNode((YourType) null, null, null);
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
     }
@@ -38,7 +38,7 @@ public class LinkedListDeque<YourType> {
             size+=1;
             return;
         }*/
-        sentinel.next = new GNode(input,sentinel.next,sentinel);
+        sentinel.next = new GNode(input, sentinel.next, sentinel);
         sentinel.next.next.prev = sentinel.next;
         size += 1;
     }
@@ -51,7 +51,7 @@ public class LinkedListDeque<YourType> {
             size+=1;
             return;
         }*/
-        sentinel.prev = new GNode(input,sentinel,sentinel.prev);
+        sentinel.prev = new GNode(input, sentinel, sentinel.prev);
         sentinel.prev.prev.next = sentinel.prev;
         size += 1;
     }
@@ -95,7 +95,7 @@ public class LinkedListDeque<YourType> {
      * next/previous  */
     public YourType removeLast() {
         //only one node
-        if(size == 0){
+        if (size == 0){
             return null;
         }
         YourType rValue = sentinel.prev.item;
@@ -106,22 +106,22 @@ public class LinkedListDeque<YourType> {
     }
 
     public YourType get(int index) {
-        if(index >= size) { 
+        if (index >= size) { 
             return null;
         }
         GNode cursor = sentinel;
-        for(int i = 0; i < (index + 1); i++) {
+        for (int i = 0; i < (index + 1); i++) {
             cursor = cursor.next;
         }
         return cursor.item;
     }
     /**Helper method for the recursive method*/
-    public YourType recurHelper(GNode origin,int index) {
+    public YourType recurHelper(GNode origin, int index) {
         if (index == 0) {
             return origin.item;
         }
         index--;
-        return recurHelper(origin.next,index);
+        return recurHelper(origin.next, index);
     }
 
     public YourType getRecursive(int index) {
@@ -129,6 +129,6 @@ public class LinkedListDeque<YourType> {
             System.out.println("Error: Index out of bound!");
             return null;
         }
-        return recurHelper(sentinel.next,index);
+        return recurHelper(sentinel.next, index);
     }
 }
