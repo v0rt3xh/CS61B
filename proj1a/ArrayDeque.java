@@ -1,5 +1,5 @@
 public class ArrayDeque<T> {
-    private final int capacity = 8;
+    private int capacity = 8;
     private T[] items;
     private int size;
     private int first;
@@ -28,9 +28,9 @@ public class ArrayDeque<T> {
     }
     /**shrink current storage array*/
     private void shrink() { //shrink by half
-        int nextCapacity = items.length / 2;
-        T[] tmp = (T[]) new Object[nextCapacity];
-        int start = (nextCapacity - size) / 2;
+        int  newCapacity = items.length / 2;
+        T[] tmp = (T[]) new Object[newCapacity];
+        int start = (newCapacity - size) / 2;
         for (int i = start; i < (start + size); i++) {
             tmp[i] = this.get(i % start);
         }
@@ -40,9 +40,9 @@ public class ArrayDeque<T> {
     }
     /**Expand current storage array*/
     private void expand() {
-        int nextCapacity = items.length * 2;
-        T[] tmp = (T[]) new Object[nextCapacity];
-        int start = (nextCapacity - size) / 2;
+        int newCapacity = items.length * 2;
+        T[] tmp = (T[]) new Object[newCapacity];
+        int start = (newCapacity - size) / 2;
         for (int i = start; i < (start + size); i++) {
             tmp[i] = this.get(i % start);
         }
@@ -50,8 +50,7 @@ public class ArrayDeque<T> {
         last = plusOne(start + size - 1);
         first = minusOne(start);
     }
-
-    /**Add a sentinel node*/
+    /**Constructor*/
     public ArrayDeque() {
         size = 0;
         items = (T[]) new Object[capacity];
@@ -69,9 +68,7 @@ public class ArrayDeque<T> {
     public void addLast(T input) {
         resize();
         if (size == 0) {
-            items[first] = input;
-            first = minusOne(first);
-            size += 1;
+            addFirst(input);
             return;
         }
         items[last] = input;
