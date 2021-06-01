@@ -1,5 +1,3 @@
-import java.io.ObjectStreamException;
-
 public class ArrayDeque<YourType> {
     private final int capacity = 8;
     YourType[] items;
@@ -20,12 +18,17 @@ public class ArrayDeque<YourType> {
     }
     /**Resize function*/
     public void resize() {
-        if (size == items.length) expand();
+        if (size == items.length) { 
+            expand();
+        }
         float usage = (float) size / (float) items.length;
-        if (usage < 0.25 && items.length > capacity) shrink();
+        if (usage < 0.25 && items.length > capacity) {
+            shrink();
+        }
     }
     /**shrink current storage array*/
-    public void shrink() {//shrink by half
+    //shrink by half
+    public void shrink() { 
         int nextCapacity = items.length / 2;
         YourType[] tmp = (YourType[]) new Object[nextCapacity];
         int start = (nextCapacity - size) / 2;
@@ -70,7 +73,9 @@ public class ArrayDeque<YourType> {
         resize();
         items[first] = input;
         first = minusOne(first);
-        if(size == 0) last = plusOne(last);
+        if(size == 0) last = { 
+            plusOne(last);
+        }
         size++;
     }
     /**Add an element to the end*/
@@ -78,7 +83,9 @@ public class ArrayDeque<YourType> {
         resize();
         items[last] = input;
         last = plusOne(last);
-        if(size == 0) first = minusOne(first);
+        if(size == 0) { 
+            first = minusOne(first);
+        }
         size++;
     }
     /**Check if it's empty*/
@@ -116,23 +123,31 @@ public class ArrayDeque<YourType> {
     }
     /**Remove the first element*/
     public YourType removeFirst() {
-        if (size == 0) return (YourType) null;
+        if (size == 0) return (YourType) { 
+            null;
+        }
         YourType outPut;
         first = plusOne(first);
         outPut = items[first];
         size--;
-        if (size == 0) last = minusOne(last);
+        if (size == 0) { 
+            last = minusOne(last);
+        }
         resize();
         return outPut;
     }
     /**Remove the last element*/
     public YourType removeLast() {
-        if (size==0) return (YourType) null;
+        if (size == 0) return (YourType) {
+            null;
+        }
         YourType outPut;
         last = minusOne(last);
         outPut = items[last];
         size--;
-        if (size == 0) first = plusOne(first);
+        if (size == 0) { 
+            first = plusOne(first);
+        }
         resize();
         return outPut;
     }
