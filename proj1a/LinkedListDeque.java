@@ -1,6 +1,8 @@
 public class LinkedListDeque<T> {
-    private int size; //The size of the double ended queue
-    private GNode sentinel; // We will apply the circular sentinel technique
+    //The size of the double ended queue
+    private int size;
+    // We will apply the circular sentinel technique
+    private GNode sentinel;
     /**Define the Generalized Node
      * Here, we want a double ended, which involves prev*/
     private class GNode {
@@ -91,7 +93,7 @@ public class LinkedListDeque<T> {
         return cursor.item;
     }
     /**Helper method for the recursive method*/
-    public T recurHelper(GNode origin, int index) {
+    private T recurHelper(GNode origin, int index) {
         if (index == 0) {
             return origin.item;
         }

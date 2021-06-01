@@ -68,6 +68,12 @@ public class ArrayDeque<T> {
     /**Add an element to the end*/
     public void addLast(T input) {
         resize();
+        if (size == 0) {
+            items[first] = input;
+            first = minusOne(first);
+            size += 1;
+            return;
+        }
         items[last] = input;
         last = plusOne(last);
         size++;
