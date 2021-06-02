@@ -1,34 +1,47 @@
 import static org.junit.Assert.*;
-
-import org.junit.Assert;
 import org.junit.Test;
 public class TestArrayDeque1B {
     @Test
-    public void testInput(){
-        StudentArrayDeque<Integer> a1= new StudentArrayDeque<>();
-        ArrayDequeSolution<Integer> a2= new ArrayDequeSolution<>();
+    public void testInput() {
+        StudentArrayDeque<Integer> a1 = new StudentArrayDeque<>();
+        ArrayDequeSolution<Integer> a2 = new ArrayDequeSolution<>();
+        OperationSequence OpRecord = new OperationSequence();
         //We will test a case:
         //Adding elements -> removing all -> adding new ones
-        int testNum=StdRandom.poisson(5f);
-        a1.addFirst(6);
-        a2.addFirst(6);
-        assertEquals(a1.removeLast(),a2.removeLast());
-        for(int i=0;i<testNum;i++){
-            int addElement=StdRandom.poisson(40.0);
-            a1.addFirst(addElement);
-            a2.addFirst(addElement);
-            addElement=StdRandom.poisson(40.0);
-            a1.addLast(addElement);
-            a2.addLast(addElement);
+        int testNum = 8;
+        for (int i = 0; i < testNum; i++) {
+            double randomChoice = StdRandom.uniform();
+            if (randomChoice > .5) {
+                a1.addFirst(i);
+                DequeOperation a1Record = new DequeOperation("addFirst",i);
+                a2.addFirst(i);
+                OpRecord.addOperation(a1Record);
+            }
+            else {
+                a1.addLast(i);
+                DequeOperation a1Record = new DequeOperation("addLast",i);
+                a2.addLast(i);
+                OpRecord.addOperation(a1Record);
+            }
         }
-        assertEquals(a1.removeLast(),a2.removeLast());//seems to work just fine
-        //consider resizing
-        for(int i=0;i<50;i++){
-            int addElement=StdRandom.poisson(40.0);
-            a1.addFirst(addElement);
-            a2.addFirst(addElement);
+        for (int j = 0; j < testNum; j++) {
+            double randomChoice2 = StdRandom.uniform();
+            if (randomChoice2 > .5) {
+                Integer studentSol = a1.removeFirst();
+                DequeOperation a1Record = new DequeOperation("removeFirst");
+                Integer officialSol = a2.removeFirst();
+                OpRecord.addOperation(a1Record);
+                assertEquals(officialSol, studentSol);
+            }
+            else {
+                Integer studentSol = a1.removeLast();
+                DequeOperation a1Record = new DequeOperation("removeLast");
+                Integer officialSol = a2.removeLast();
+                OpRecord.addOperation(a1Record);
+                assertEquals(OpRecord.toString(),officialSol, studentSol);
+            }
         }
-        assertEquals(a1.removeLast(),a2.removeLast());
+
     }
 
 }
