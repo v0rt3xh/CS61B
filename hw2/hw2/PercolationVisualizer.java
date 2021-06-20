@@ -15,14 +15,14 @@
  *  with with site (0, 0) in the upper left-hand corner.
  *
  ******************************************************************************/
-package hw2;                       
+package hw2;
 import java.awt.Font;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 
 public class PercolationVisualizer {
-/*
+
     // delay in miliseconds (controls animation speed)
     private static final int DELAY = 100;
 
@@ -56,7 +56,7 @@ public class PercolationVisualizer {
             StdDraw.text(.75 * N, -N * .025, "percolates");
         } else {
             StdDraw.text(.75 * N, -N * .025, "does not percolate");
-        }                 
+        }
 
     }
 
@@ -66,7 +66,7 @@ public class PercolationVisualizer {
         Percolation perc = new Percolation(N);
 
         // turn on animation mode
-        StdDraw.show(0); 
+        StdDraw.show(0);
 
         // repeatedly read in sites to open and draw resulting system
         draw(perc, N);
@@ -83,5 +83,5 @@ public class PercolationVisualizer {
     public static void main(String[] args) {
         String filename = args[0];
         simulateFromFile(filename);
-    }*/
+    }
 }
