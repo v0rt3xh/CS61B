@@ -7,6 +7,9 @@ public class PercolationStats {
     private double[] openStorage;
     private int experimentT;
     public PercolationStats(int N, int T, PercolationFactory pf) {
+        if (N <= 0 || T <= 0) {
+            throw (new IllegalArgumentException("bruh, give a positive integer"));
+        }
         experimentT = T;
         openStorage = new double[experimentT];
         int gridSize = N * N;

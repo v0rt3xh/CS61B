@@ -35,7 +35,7 @@ public class Percolation {
     //Wow, using 1-D array would be enough...
     private int indexAdapter(int row, int col) {
         if (row >= range || row < 0 || col >= range || col < 0) {
-            throw (new IllegalArgumentException("Out of scope!!"));
+            throw (new IndexOutOfBoundsException("Out of scope!!"));
         }
         return row * range + col;
     }
@@ -86,7 +86,7 @@ public class Percolation {
 
     public boolean isFull(int row, int col) {
         if (row >= range || row < 0 || col >= range || col < 0) {
-            throw (new IllegalArgumentException("Out of scope!!"));
+            throw (new IndexOutOfBoundsException("Out of scope!!"));
         }
         int currentIndex = indexAdapter(row, col);
         return backWashQUUF.connected(TOP, currentIndex) & openStatus[currentIndex];
@@ -97,10 +97,15 @@ public class Percolation {
     }
 
     public boolean percolates() {
+        if (range == 1) {
+            return openRecords == 1;
+        }
         return connectRecords.connected(TOP, BOTTOM);
     }
 
     public static void main(String[] args) {
+        Percolation testP = new Percolation(1);
+        System.out.println(testP.percolates());
     }
 
 }
