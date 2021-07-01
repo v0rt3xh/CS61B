@@ -103,17 +103,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void swim(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-        if (index == 1) {
+        if (!inBounds(parentIndex(index))) {
             return;
         }
         int pIndex = parentIndex(index);
-        while (min(index, pIndex) == index) {
+        if (min(index, pIndex) == index) {
             swap(index, pIndex);
-            index = pIndex;
-            if (index == 1) {
-                return;
-            }
-            pIndex = parentIndex(index);
+            swim(pIndex);
         }
     }
 
@@ -126,20 +122,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         int lIndex = leftIndex(index);
         int rIndex = rightIndex(index);
         int minLR = min(lIndex, rIndex);
-        if (minLR > size) {
+        if (!inBounds(minLR)) {
             return;
         }
-        while (min(index, minLR) == minLR) {
+        if (min(index, minLR) == minLR) {
             swap(index, minLR);
-            index = minLR;
-            lIndex = leftIndex(index);
-            rIndex = rightIndex(index);
-            minLR = min(lIndex, rIndex);
-            if (minLR > size) {
-                return;
-            }
+            sink(minLR);
         }
-        return;
     }
 
     /**
@@ -207,7 +196,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     public void changePriority(T item, double priority) {
         int loc;
         for (int i = 1; i < size; i++) {
-            if (contents[i].item() == item) {
+            if (contents[i].item().equals(item)) {
                 loc = i;
                 contents[i].myPriority = priority;
                 if (min(loc, parentIndex(loc)) == loc) {
