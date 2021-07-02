@@ -203,16 +203,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         for (int i = 1; i < size; i++) {
             if (item.equals(getNode(i).myItem)) {
                 loc = i;
-                double priorRecord = getNode(loc).myPriority;
                 getNode(loc).myPriority = priority;
-                int pIndex = parentIndex(loc);
-                int lIndex = leftIndex(loc);
-                int rIndex = rightIndex(loc);
-                if (priority >= getNode(lIndex).myPriority || priority >= getNode(rIndex).myPriority) {
-                    sink(loc);
-                } else if (priority <= getNode(pIndex).myPriority) {
-                    swim(loc);
-                }
+                swim(loc);
+                sink(loc);
                 return;
             }
         }
