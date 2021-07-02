@@ -107,7 +107,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             return;
         }
         int pIndex = parentIndex(index);
-        if (min(index, pIndex) == index) {
+        if (getNode(index).myPriority < getNode(pIndex).myPriority) {
             swap(index, pIndex);
             swim(pIndex);
         }
@@ -125,7 +125,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         if (!inBounds(minLR)) {
             return;
         }
-        if (min(index, minLR) == minLR) {
+        if (getNode(minLR).myPriority < getNode(index).myPriority) {
             swap(index, minLR);
             sink(minLR);
         }
@@ -142,8 +142,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             resize(contents.length * 2);
         }
         Node newItem = new Node(item, priority);
-        contents[size + 1] = newItem;
         size += 1;
+        contents[size] = newItem;
         swim(size);
     }
 
@@ -167,11 +167,16 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
+        if (size == 0) {
+            return null;
+        }
         swap(size, 1);
         T output = contents[size].item();
         contents[size] = null;
         size -= 1;
-        sink(1);
+        if (size > 0) {
+            sink(1);
+        }
         return output;
     }
 
@@ -198,13 +203,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         for (int i = 1; i < size; i++) {
             if (contents[i].item().equals(item)) {
                 loc = i;
+                double priorRecord = contents[i].myPriority;
                 contents[i].myPriority = priority;
-                if (min(loc, parentIndex(loc)) == loc) {
+                if (getNode(loc).myPriority < priorRecord) {
                     swim(loc);
                 }
-                int lIndex = leftIndex(loc);
-                int rIndex = rightIndex(loc);
-                if (min(loc, min(lIndex, rIndex)) != loc) {
+                if (getNode(loc).myPriority > priorRecord) {
                     sink(loc);
                 }
                 return;
