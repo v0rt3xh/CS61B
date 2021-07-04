@@ -115,7 +115,7 @@ public class Board implements WorldState {
     public int estimatedDistanceToGoal() {
         return manhattan();
     }
-
+    @Override
     public boolean equals(Object y) {
         if (y == this) {
             return true;
@@ -137,6 +137,11 @@ public class Board implements WorldState {
             }
         }
         return true;
+    }
+
+    @Override
+    public int hashCode(){
+        return estimatedDistanceToGoal();
     }
 
     /** Returns the string representation of the board. 
