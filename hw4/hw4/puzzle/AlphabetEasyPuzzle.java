@@ -1,4 +1,4 @@
-package hw3.puzzle;
+package hw4.puzzle;
 
 import java.util.Set;
 import java.util.HashSet;
