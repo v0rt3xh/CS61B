@@ -140,7 +140,7 @@ public class Board implements WorldState {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return estimatedDistanceToGoal();
     }
 
