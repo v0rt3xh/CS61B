@@ -34,8 +34,13 @@ public class MergeSort {
     /** Returns a queue of queues that each contain one item from items. */
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
-        // Your code here!
-        return null;
+        Queue<Queue<Item>> payCheck = new Queue<>();
+        for (Item i : items) {
+            Queue<Item> singleElement = new Queue<>();
+            singleElement.enqueue(i);
+            payCheck.enqueue(singleElement);
+        }
+        return payCheck;
     }
 
     /**
@@ -53,14 +58,63 @@ public class MergeSort {
      */
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
-        // Your code here!
-        return null;
+        Queue<Item> omega = new Queue<>();
+        while (!q1.isEmpty() || !q2.isEmpty()) {
+            //Place the smallest item into omega
+            omega.enqueue(getMin(q1, q2));
+        }
+        return omega;
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
-        // Your code here!
-        return items;
+        //From least to greatest =D
+        //Corner case
+        int currentSize = items.size();
+        if (currentSize <= 1) {
+            return items;
+        }
+        // each item, now is a p1 or p2 =D
+        Queue<Queue<Item>> bachelors = makeSingleItemQueues(items);
+        Queue<Item> omega1 = new Queue<>();
+        for (int i = 0; i < currentSize / 2; i += 2) {
+            Queue<Item> cell1 = bachelors.dequeue();
+            Queue<Item> cell2 = bachelors.dequeue();
+            omega1 = mergeSortedQueues(omega1, mergeSortedQueues(cell1 , cell2));
+        }
+        Queue<Item> omega2 = new Queue<>();
+        for (int j = currentSize / 2 + 1; j < currentSize; j += 2){
+            Queue<Item> cell1 = bachelors.dequeue();
+            Queue<Item> cell2 = bachelors.dequeue();
+            omega2 = mergeSortedQueues(omega2, mergeSortedQueues(cell1 , cell2));
+        }
+        return mergeSortedQueues(omega1, omega2);
     }
+
+    //Should a useless paragraph at the beginning =D.
+    public static void main(String[] args) {
+        Queue<String> theTask = new Queue<>();
+        theTask.enqueue("Sheboygan");
+        theTask.enqueue("Milwaukee");
+        theTask.enqueue("Lafayette");
+        theTask.enqueue("Chicago");
+        theTask.enqueue("Seattle");
+        theTask.enqueue("Francisco");
+        for (int i = 0; i < 10000; i++) {
+            theTask.enqueue("Ghost");
+        }
+        System.out.println("Unsorted objects:");
+        for (String s : theTask) {
+            System.out.print(s + " ");
+        }
+        System.out.print("\n");
+        System.out.println("Sorted objects:");
+        Queue<String> solvedTask = mergeSort(theTask);
+        for (String s : solvedTask) {
+            System.out.print(s + " ");
+        }
+        System.out.print("\n");
+    }
+
 }
