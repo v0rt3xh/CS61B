@@ -48,15 +48,13 @@ public class QuickSort {
             Queue<Item> unsorted, Item pivot,
             Queue<Item> less, Queue<Item> equal, Queue<Item> greater) {
         int currentSize = unsorted.size();
-        for(int i = 0; i < currentSize; i++) {
+        for (int i = 0; i < currentSize; i++) {
             Item candidate = unsorted.dequeue();
             if (candidate.compareTo(pivot) == 0) {
                 equal.enqueue(candidate);
-            }
-            else if (candidate.compareTo(pivot) > 0) {
+            } else if (candidate.compareTo(pivot) > 0) {
                 greater.enqueue(candidate);
-            }
-            else {
+            } else {
                 less.enqueue(candidate);
             }
         }
@@ -70,7 +68,7 @@ public class QuickSort {
         Queue<Item> equal = new Queue<>();
         Queue<Item> greater = new Queue<>();
         Queue<Item> exhaust;
-        if (starter.size() <= 1){
+        if (starter.size() <= 1) {
             return starter;
         }
         partition(starter, getRandomItem(starter), less, equal, greater);

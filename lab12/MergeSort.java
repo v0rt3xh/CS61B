@@ -81,13 +81,13 @@ public class MergeSort {
         for (int i = 0; i < currentSize / 2; i += 2) {
             Queue<Item> cell1 = bachelors.dequeue();
             Queue<Item> cell2 = bachelors.dequeue();
-            omega1 = mergeSortedQueues(omega1, mergeSortedQueues(cell1 , cell2));
+            omega1 = mergeSortedQueues(omega1, mergeSortedQueues(cell1, cell2));
         }
         Queue<Item> omega2 = new Queue<>();
-        for (int j = currentSize / 2 + 1; j < currentSize; j += 2){
+        for (int j = currentSize / 2 + 1; j < currentSize; j += 2) {
             Queue<Item> cell1 = bachelors.dequeue();
             Queue<Item> cell2 = bachelors.dequeue();
-            omega2 = mergeSortedQueues(omega2, mergeSortedQueues(cell1 , cell2));
+            omega2 = mergeSortedQueues(omega2, mergeSortedQueues(cell1, cell2));
         }
         return mergeSortedQueues(omega1, omega2);
     }
